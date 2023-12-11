@@ -26,6 +26,7 @@ def updateBoard(ba, space, mark):
 
 
 def displayBoard(ba):
+  call('cls' if os.name == 'nt' else 'clear', shell=True)
   print()
   print(f' {ba[0][0]} | {ba[0][1]} | {ba[0][2]} ')
   print('-----------')
@@ -99,12 +100,12 @@ def playttt():
   playerMark, computerMark = getPlayerMark()
 
   while continuePlaying:
-    call('clear' if os.name == 'posix' else 'cls')
-    print(f'You are playing as {playerMark}')
+    
 
     space = '0'
     displayBoard(ba)
     print()
+    print(f'You are playing as {playerMark}')
 
     if turn % 2 == 0:
       while space not in availableSpots:
@@ -113,11 +114,8 @@ def playttt():
           print('Invalid entry. Try again.')
       updateBoard(ba, space, playerMark)
     else:
-      print("Computer's turn! Thinking", end=' ')
-      for i in range(10):
-        print('.', end='')
-        time.sleep(0.2)
-      print()
+      print("Computer's turn! Thinking...")
+      time.sleep(2.5)
       shuffle(availableSpots)
       space = str(availableSpots[randint(0, len(availableSpots) - 1)])
       updateBoard(ba, space, computerMark)
@@ -126,17 +124,20 @@ def playttt():
 
     endState = checkEnd(ba, playerMark, availableSpots)
     if endState == 'win':
-      call('clear' if os.name == 'posix' else 'cls')
+      call('cls' if os.name == 'nt' else 'clear', shell=True)
+
       print(f'You are playing as {playerMark}')
       displayBoard(ba)
       return 'win'
     elif endState == 'lose':
-      call('clear' if os.name == 'posix' else 'cls')
+      call('cls' if os.name == 'nt' else 'clear', shell=True)
+
       print(f'You are playing as {playerMark}')
       displayBoard(ba)
       return 'lose'
     elif endState == 'draw':
-      call('clear' if os.name == 'posix' else 'cls')
+      call('cls' if os.name == 'nt' else 'clear', shell=True)
+
       print(f'You are playing as {playerMark}')
       displayBoard(ba)
       return 'draw'
